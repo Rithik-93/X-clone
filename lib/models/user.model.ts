@@ -36,6 +36,17 @@ const userSchema = new mongoose.Schema({
 
 userSchema.index({ username: 1 }, { unique: true });
 
+// I've included email in userSchema which i don't(gives errors) want to so the next logic is to remove email property
+mongoose.connection.once("open", async () => {
+  const User = mongoose.model("User", userSchema);
+  const indexes = await User.collection.indexes();
+  const emailIndex = indexes.find(index => index.name === "email_1");
+  if (emailIndex) {
+    await User.collection.dropIndex("email_1");
+    console.log("Removed unused email index.");
+  }
+});
+
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;
