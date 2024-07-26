@@ -172,6 +172,9 @@ module.exports = {
       ],
     },
     extend: {
+      backgroundImage: {
+        'signin/up-bg': "url('/public/geometric-gradient-futuristic-background_23-2149116406.avif')"
+      },
       colors: {
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
